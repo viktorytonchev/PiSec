@@ -26,7 +26,7 @@ The MVP is to be delivered by October 16th.
 The polished system (software, web interface, setup guide) is to be delivered before November 4th. 
 
 ### Limitations of the current system (if any)
- A lot of the current security systems on the Pi lack an efficient and easy overview that can be setup easily. There are systems controlled from the terminal. However, we were not able to find a fully operational system that was easy to set up and use. We also did not find any systems with a web interface. 
+A lot of the current security systems on the Pi lack an efficient and easy overview that can be setup easily. There are systems controlled from the terminal. However, we were not able to find a fully operational system that was easy to set up and use. We also did not find any systems with a web interface. 
 
 ### Objectives
 Create an intuitive web interface.

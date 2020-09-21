@@ -2,12 +2,12 @@ Assignment 1.2
 Selection of your application
 Team ID: cs20-35
 
-David Roelofsen s2002159
-Mauricio Merchan s2210037
-Vladimirs Popovs s2310651
-Yordan Tsintsov s2331993
-Viktor Tonchev s2332000
-Dimitar Popov s2310015
+David Roelofsen s2002159  
+Mauricio Merchan s2210037  
+Vladimirs Popovs s2310651  
+Yordan Tsintsov s2331993  
+Viktor Tonchev s2332000  
+Dimitar Popov s2310015  
 
 ## Introduction
 The project we will be developing is a security system to control the state of doors or windows (i.e. closed or open) When armed (turned on), the system monitors the sensors connected to the security system (the Raspberry Pi - the Pi from now on), and if a sensor detects a door(or a window) was opened, sends an alarm notification to the users.

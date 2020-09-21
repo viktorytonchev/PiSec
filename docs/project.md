@@ -55,6 +55,6 @@ Secure use of the product (e.g. 2-factor authentication)
 The project as a security system is not a complete security system. However, we are planning a modular project so that adding support for other types of sensors should be reasonably simple.
 
 ## Reference
-https://www.ryansouthgate.com/2015/08/10/raspberry-pi-door-sensor/
-https://medium.com/conectric-networks/playing-with-raspberry-pi-door-sensor-fun-ab89ad499964
-https://tutorials-raspberrypi.com/raspberry-pi-door-window-sensor-with-reed-relais/
+https://www.ryansouthgate.com/2015/08/10/raspberry-pi-door-sensor/  
+https://medium.com/conectric-networks/playing-with-raspberry-pi-door-sensor-fun-ab89ad499964  
+https://tutorials-raspberrypi.com/raspberry-pi-door-window-sensor-with-reed-relais/  

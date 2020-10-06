@@ -5,10 +5,6 @@
 | *Team members:* |s2002159, s2210037, s2310651, s2331993, s2332000, s2310015 |
 | *Team ID:*      |cs20-35|
 
-**Instructions:**
-* Make a document by including all the suggested sections.
-* The document should be 1500-2500 words.
- 
 ## Introduction
 
 Most apartments don’t have a security system, or have one that can be disarmed from the inside of the apartment. 

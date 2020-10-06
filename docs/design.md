@@ -118,13 +118,17 @@ By completing the notification system, the MVP will be ready.
 After the testing of the MVP is complete and shows expected operation, the development moves to the visual design of the web app.
 The team wants to see the visuals of the web app close to the design in the mock-up.
 
-When the design phase for the MVP is finished, the development team will shift to implementing additional requirements. That includes (possibly and not necessarily) SMS notifications, Telegram notifications, support for additional sensors.
-
-Add telegram bot.
-**(You are required to prioritize the functionalities to build your Minimal Viable Product. It should be stated clearly.)**
+When the design phase for the MVP is finished, the development team will shift to implementing additional requirements. 
+That includes (possibly and not necessarily) SMS notifications, Telegram notifications, support for additional sensors.
 
 ## Conclusion
+The security system solutions available on the market are usually much more extensive and cover a lot more functionality, 
+however, the concept of our system, we think, is very similar. A simple and secure solution, 
+but due to a highly limited timeframe, we are constraint in resources to implement more functionality, allow several systems to work as one, or allow simple
+addition of more sensors. However, we will still follow a 'modular' approach to allow, if the schedule allow us, simple extension of the functionality. 
 
-**(You can give the concluding statements of your document.)**
 
 ## Reference
+https://www.ryansouthgate.com/2015/08/10/raspberry-pi-door-sensor/  
+https://medium.com/conectric-networks/playing-with-raspberry-pi-door-sensor-fun-ab89ad499964  
+https://tutorials-raspberrypi.com/raspberry-pi-door-window-sensor-with-reed-relais/ 

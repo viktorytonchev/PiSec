@@ -21,7 +21,7 @@ Below you find the extended description in:
 * References
 
 For reference, in the gitlab repository, UML diagrams and a mock-up are included for better understanding. Use at your own discretion.
-UML(Use case diagram, State machine diagram, Class diagram): https://gitlab.utwente.nl/cs20-35/mod5/-/tree/master/docs/uml
+UML(Use case diagram, State machine diagram, Class diagram, Database Schema): https://gitlab.utwente.nl/cs20-35/mod5/-/tree/master/docs/uml
 Mock-up: https://gitlab.utwente.nl/cs20-35/mod5/-/tree/master/docs/mockup
 
 ## Product User Interface

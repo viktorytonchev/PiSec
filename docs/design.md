@@ -127,7 +127,6 @@ however, the concept of our system, we think, is very similar. A simple and secu
 but due to a highly limited timeframe, we are constraint in resources to implement more functionality, allow several systems to work as one, or allow simple
 addition of more sensors. However, we will still follow a 'modular' approach to allow, if the schedule allow us, simple extension of the functionality. 
 
-
 ## Reference
 https://www.ryansouthgate.com/2015/08/10/raspberry-pi-door-sensor/  
 https://medium.com/conectric-networks/playing-with-raspberry-pi-door-sensor-fun-ab89ad499964  

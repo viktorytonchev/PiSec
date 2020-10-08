@@ -1,6 +1,7 @@
 CREATE TABLE pisec.system (
 	sid integer NOT NULL,
-	name character varying(100)
+	name character varying(100),
+	password character varying(100)
 );
 
 CREATE TABLE pisec.notifications (

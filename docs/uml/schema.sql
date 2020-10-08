@@ -1,30 +1,33 @@
-CREATE TABLE pisec.system (
+CREATE OR REPLACE TABLE pisec.system (
 	sid integer NOT NULL,
 	name character varying(100),
-	password character varying(100) NOT NULL
+	password character varying(100) NOT NULL,
+	alarm boolean DEFAULT FALSE,
+	armed boolean DEFAULT FALSE,
+	pin int NOT NULL,
 );
 
-CREATE TABLE pisec.notifications (
+CREATE OR REPLACE TABLE pisec.notifications (
 	nid integer NOT NULL,
 	message character varying,
 	"date" DATE,
 	"time" time without time zone
 );
 
-CREATE TABLE pisec.email (
+CREATE OR REPLACE TABLE pisec.email (
 	eid integer NOT NULL,
 	email character varying(100),
 	sid integer NOT NULL
 );
 
-CREATE TABLE pisec.sensor (
+CREATE OR REPLACE TABLE pisec.sensor (
 	sid integer NOT NULL,
 	armed boolean DEFAULT FALSE,
 	"open" boolean DEFAULT FALSE,
 	name character varying(100)
 );
 
-CREATE TABLE pisec.is_sent_to (
+CREATE OR REPLACE TABLE pisec.is_sent_to (
 	eid integer NOT NULL,
 	nid integer NOT NULL
 );

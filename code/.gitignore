@@ -16,6 +16,9 @@
 *.iml
 *.ipr
 
+###Security###
+/code/src/main/java/web/login/Security.java
+
 ### NetBeans ###
 /nbproject/private/
 /build/

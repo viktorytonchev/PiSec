@@ -6,6 +6,22 @@ public class Email {
     private int sid; //for which system is that Email going to be.
     private String email;
 
+    public int getEid() {
+        return eid;
+    }
+
+    public void setEid(int eid) {
+        this.eid = eid;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 
     public Email(int eid, int sid, String email) {
         this.eid = eid;

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .rectangle1 {
+            background-color: lawngreen;
+            text-align: center;
+            padding-top: 18px;
+            width: 80px;
+            height: 40px;
+            border-radius: 15px;
+            font-size: large;
+
+        }
+
+        .rectangle2 {
+            background-color: red;
+            text-align: center;
+            padding-top: 18px;
+            width: 80px;
+            height: 40px;
+            border-radius: 15px;
+            font-size: large;
+
+        }
+
+        .rectangle3 {
+            background-color: deepskyblue;
+            text-align: center;
+            color: white;
+            padding-top: 5px;
+            width: 150px;
+            height: 55px;
+            text-align: center;
+            border-radius: 15px;
+            font-size: large;
+        }
+
+        .rectangle4 {
+            background-color: #8d17a8;
+            color: white;
+            text-align: center;
+            padding-top: 5px;
+            text-align: center;
+            width: 100px;
+            height: 55px;
+            text-align: center;
+            border-radius: 15px;
+            font-size: large;
+        }
+
+        .rectangle5 {
+            background-color: #209284;
+            color: white;
+            text-align: center;
+            padding-top: 5px;
+            text-align: center;
+            width: 100px;
+            height: 55px;
+            text-align: center;
+            border-radius: 15px;
+            font-size: large;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .left {
+            width: 50%;
+            float: left;
+            font-size: large;
+            margin-top: 15px;
+        }
+
+        .right {
+            width: 25%;
+            float: right;
+            color: white;
+        }
+
+        nav.projectlist ul {
+            height: 50%;
+            /*width: 18%;*/
+            /*position: absolute;*/
+        }
+
+
+        nav.projectlist ul {
+            overflow: hidden;
+            overflow-y: scroll
+        }
+    </style>
+
+<!--    <script>-->
+<!--        let x = 0;-->
+<!--        function armdisarm() {-->
+<!--            if(x%2 === 0){-->
+<!--                let state = this.getElementById("state");-->
+
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
+</head>
+<body style="background-color: #ffffff">
+
+<div id="sensors" style="width: 40%; float: left; border: 2px solid black" class="text-center">
+
+    <header style="font-size: xx-large; color: #844a76; text-align: center"><b>Your info: </b></header>
+    <hr>
+
+    <ul>
+        <li>
+            <div class="left"> System State:</div>
+            <div class="right" id="state">
+                <div class="rectangle1">ARMED</div>
+            </div>
+            <div class="right">
+                <div class="rectangle1"> ALARM</div>
+            </div>
+        </li>
+        <br>
+        <br>
+        <br>
+        <br>
+        <li>
+            <div class="left"> Main door:</div>
+            <div class="right">
+                <div class="rectangle1"> CLOSED</div>
+            </div>
+        </li>
+        <br>
+        <br>
+        <br>
+        <br>
+        <li>
+            <div class="left"> Living room window 1:</div>
+            <div class="right">
+                <div class="rectangle2"> OPEN</div>
+            </div>
+        </li>
+        <br>
+        <br>
+        <br>
+        <br>
+        <li>
+            <div class="left"> Living room window 2:</div>
+            <div class="right">
+                <div class="rectangle1"> CLOSED</div>
+            </div>
+        </li>
+        <br>
+        <br>
+        <br>
+        <br>
+        <li>
+            <div class="left"> Bedroom window:</div>
+            <div class="right">
+                <div class="rectangle1"> CLOSED</div>
+            </div>
+        </li>
+        <br>
+        <br>
+        <br>
+        <br>
+        <li>
+            <div class="left"> Back door:</div>
+            <div class="right">
+                <div class="rectangle2"> OPEN</div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="settings" style="width: 40%; float: right; border: 2px solid black;">
+    <header style="font-size: xx-large; color: #844a76; text-align: center"><b>Settings: </b></header>
+    <hr>
+    <ul>
+        <li>
+            <div style="width: 67%; float: right;">
+                <button class="rectangle3" onclick="armdisarm()"> ARM/DISARM <br> SYSTEM </button>
+            </div>
+        </li>
+        <br>
+        <br>
+        <br>
+        <br>
+        <li>
+            <div style="width: 63%; float: right;">
+                <button class="rectangle4"> CHANGE PIN </button>
+            </div>
+        </li>
+        <br>
+        <br>
+        <br>
+        <br>
+        <li>
+            <div style="width: 63%; float: right;">
+                <button class="rectangle5"> Edit emails </button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

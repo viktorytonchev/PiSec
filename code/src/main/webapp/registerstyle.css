@@ -1,0 +1,76 @@
+/* Bordered form */
+form {
+    border: 3px solid rgba(255, 255, 255, 0);
+}
+
+.logoutForm {
+    border: initial;
+}
+
+.logoutButton {
+    all: initial;
+    color: #9d9d9d;
+    position: relative;
+    display: block;
+    padding: 15px 15px;
+    line-height: 20px;
+}
+
+body {
+    background-image: url("https://ibb.co/9bpFqwr");
+    /*background-blend-mode: soft-light;*/
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #DD4C9C;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    /*TO ADD AN EFFECT TO THE BUTTON*/
+    /*padding: 15px 25px;*/
+    /*font-size: 24px;*/
+    /*text-align: center;*/
+    outline: none;
+    border-radius: 5px; /*used to be 7 */
+    box-shadow: 0 7px #8b4a71;
+
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+    opacity: 1;
+    /*position: relative;*/
+    /*left: 300px;*/
+}
+
+/* THIS ADDS AN ANIMATION TO THE BUTTONS!!!!!1 */
+button:active {
+    background-color: #DD4C9C;
+    box-shadow: 0 5px #8b4a71;
+    transform: translateY(4px);
+}
+/* Add padding to containers */
+.container {
+    padding: 16px;
+}
+
+label {
+    color: #000000;
+}

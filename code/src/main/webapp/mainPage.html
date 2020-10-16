@@ -94,86 +94,150 @@
         }
     </style>
 
-    <!--    <script>-->
-    <!--        let x = 0;-->
-    <!--        function armdisarm() {-->
-    <!--            if(x%2 === 0){-->
-    <!--                let state = this.getElementById("state");-->
+    <script>
 
-    <!--            }-->
-    <!--        }-->
-    <!--    </script>-->
+        function displaySensors() {
+            const xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    const response = this.responseText;
+                    const sensors = JSON.parse(response);
+
+                    const list = document.getElementById("list");
+                    list.innerHTML = "";
+
+                    if (sensors.length > 0) {
+
+                        const state = document.createElement("li");
+                        state.setAttribute("id", "system");
+                        let left = document.createElement("div");
+                        let right1 = document.createElement("div");
+                        let right2 = document.createElement("div");
+                        left.setAttribute("class", "left");
+                        left.innerText = "System State:";
+                        right1.setAttribute("class", "right");
+                        right2.setAttribute("class", "right");
+                        let armed = document.createElement("div");
+                        let alarm = document.createElement("div");
+                        armed.setAttribute("class", "rectangle1");
+                        armed.innerText = "ARMED";
+                        alarm.setAttribute("class", "rectangle1");
+                        alarm.innerText = "ALARM";
+                        right1.appendChild(armed);
+                        right2.appendChild(alarm);
+                        state.appendChild(left);
+                        state.appendChild(right1);
+                        state.appendChild(right2);
+                        list.appendChild(state);
+                        list.appendChild(document.createElement("br"));
+                        list.appendChild(document.createElement("br"));
+                        list.appendChild(document.createElement("br"));
+                        list.appendChild(document.createElement("br"));
+
+                        for (let i = 0; i < sensors.length; i++) {
+                            const sensor = document.createElement("li");
+                            let left = document.createElement("div");
+                            let right = document.createElement("div");
+                            let rect = document.createElement("div")
+                            left.setAttribute("class", "left");
+                            right.setAttribute("class", "right");
+                            if(sensors[i].open){
+                                rect.setAttribute("class", "rectangle2");
+                                rect.innerText = "OPEN";
+                            } else {
+                                rect.setAttribute("class", "rectangle1");
+                                rect.innerText = "CLOSED";
+                            }
+                            left.innerText = sensors[i].name+":";
+                            sensor.appendChild(left);
+                            right.appendChild(rect);
+                            sensor.appendChild(right);
+                            list.appendChild(sensor);
+                            list.appendChild(document.createElement("br"));
+                            list.appendChild(document.createElement("br"));
+                            list.appendChild(document.createElement("br"));
+                            list.appendChild(document.createElement("br"));
+                        }
+                    }
+                }
+            }
+            xmlHttpRequest.open("GET", "rest/sensors/", true);
+            xmlHttpRequest.send();
+        }
+    </script>
 </head>
-<body style="background-color: #ffffff">
+<body style="background-color: #ffffff" onload="displaySensors()">
 
 <div id="sensors" style="width: 40%; float: left; border: 2px solid black" class="text-center">
 
     <header style="font-size: xx-large; color: #844a76; text-align: center"><b>Your info: </b></header>
     <hr>
 
-    <ul>
-        <li>
-            <div class="left"> System State:</div>
-            <div class="right" id="state">
-                <button class="shadow -lg rectangle1"> ARMED</button>
-            </div>
-            <div class="right">
-                <button class="shadow -lg rectangle1"> Register</button>
-                ALARM
-            </div>
-        </li>
-        <br>
-        <br>
-        <br>
-        <br>
-        <li>
-            <div class="left"> Main door:</div>
-            <div class="right">
-                <div class="rectangle1"> CLOSED</div>
-            </div>
-        </li>
-        <br>
-        <br>
-        <br>
-        <br>
-        <li>
-            <div class="left"> Living room window 1:</div>
-            <div class="right">
-                <div class="rectangle2"> OPEN</div>
-            </div>
-        </li>
-        <br>
-        <br>
-        <br>
-        <br>
-        <li>
-            <div class="left"> Living room window 2:</div>
-            <div class="right">
-                <div class="rectangle1"> CLOSED</div>
-            </div>
-        </li>
-        <br>
-        <br>
-        <br>
-        <br>
-        <li>
-            <div class="left"> Bedroom window:</div>
-            <div class="right">
-                <div class="rectangle1"> CLOSED</div>
-            </div>
-        </li>
-        <br>
-        <br>
-        <br>
-        <br>
-        <li>
-            <div class="left"> Back door:</div>
-            <div class="right">
-                <div class="rectangle2"> OPEN</div>
-            </div>
-        </li>
-    </ul>
+    <ul id="list"></ul>
+<!--    <ul id="list">-->
+<!--        <li>-->
+<!--            <div class="left"> System State:</div>-->
+<!--            <div class="right" id="state">-->
+<!--                <div class="rectangle1">ARMED</div>-->
+<!--            </div>-->
+<!--            <div class="right">-->
+<!--                <div class="rectangle1"> ALARM</div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <li>-->
+<!--            <div class="left"> Main door:</div>-->
+<!--            <div class="right">-->
+<!--                <div class="rectangle1"> CLOSED</div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <li>-->
+<!--            <div class="left"> Living room window 1:</div>-->
+<!--            <div class="right">-->
+<!--                <div class="rectangle2"> OPEN</div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <li>-->
+<!--            <div class="left"> Living room window 2:</div>-->
+<!--            <div class="right">-->
+<!--                <div class="rectangle1"> CLOSED</div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <li>-->
+<!--            <div class="left"> Bedroom window:</div>-->
+<!--            <div class="right">-->
+<!--                <div class="rectangle1"> CLOSED</div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <br>-->
+<!--        <li>-->
+<!--            <div class="left"> Back door:</div>-->
+<!--            <div class="right">-->
+<!--                <div class="rectangle2"> OPEN</div>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--    </ul>-->
+    <button class="right" onclick="displaySensors()" style="margin-bottom: 10px; margin-right: 30px; background-color: #DD4C9C; color: white; padding: 14px 20px; border-radius: 5px">Reload</button>
 </div>
+
 
 <div id="settings" style="width: 40%; float: right; border: 2px solid black;">
     <header style="font-size: xx-large; color: #844a76; text-align: center"><b>Settings: </b></header>
@@ -181,7 +245,7 @@
     <ul>
         <li>
             <div style="width: 67%; float: right;">
-                <button class="rectangle3" onclick="armdisarm()"> ARM/DISARM <br> SYSTEM</button>
+                <button class="rectangle3" style="outline: 0" onclick="armdisarm()"> ARM/DISARM <br> SYSTEM </button>
             </div>
         </li>
         <br>
@@ -190,7 +254,7 @@
         <br>
         <li>
             <div style="width: 63%; float: right;">
-                <button class="rectangle4"> CHANGE PIN</button>
+                <button class="rectangle4" style="outline: 0"> CHANGE PIN </button>
             </div>
         </li>
         <br>
@@ -198,8 +262,8 @@
         <br>
         <br>
         <li>
-            <div style="width: 63%; float: right;">
-                <button class="rectangle5"> Edit emails</button>
+            <div style="width: 63%; float: right; margin-bottom: 10px;">
+                <button class="rectangle5" style="outline: 0"> Edit emails </button>
             </div>
         </li>
     </ul>

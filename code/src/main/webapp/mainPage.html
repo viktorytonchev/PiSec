@@ -26,6 +26,17 @@
 
         }
 
+        .rectangle21 {
+            background-color: #FF3366;
+            text-align: center;
+            padding-top: 18px;
+            width: 80px;
+            height: 40px;
+            border-radius: 15px;
+            font-size: medium;
+
+        }
+
         .rectangle3 {
             background-color: #33CCFF;
             text-align: center;
@@ -96,7 +107,61 @@
 
     <script>
 
+        function displayState() {
+            const xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.onreadystatechange = function () {
+                if(this.readyState == 4 && this.status === 200){
+                    const response = this.responseText;
+                    const system = JSON.parse(response);
+
+                    const state = document.createElement("li");
+                    state.setAttribute("id", "system");
+                    let left = document.createElement("div");
+                    let right1 = document.createElement("div");
+                    let right2 = document.createElement("div");
+                    left.setAttribute("class", "left");
+                    left.innerText = "System State:";
+                    right1.setAttribute("class", "right");
+                    right2.setAttribute("class", "right");
+                    let armed = document.createElement("div");
+                    let alarm = document.createElement("div");
+                    if(system.alarm){
+                        alarm.setAttribute("class", "rectangle2");
+                    } else{
+                        alarm.setAttribute("class", "rectangle1");
+                    }
+                    alarm.innerText = "ALARM";
+                    if(system.armed){
+                        armed.setAttribute("class", "rectangle1");
+                        armed.innerText = "ARMED";
+                    } else{
+                        armed.setAttribute("class", "rectangle21");
+                        armed.innerText = "UNARMED";
+                    }
+
+
+                    right1.appendChild(armed);
+                    right2.appendChild(alarm);
+                    state.appendChild(left);
+                    state.appendChild(right1);
+                    state.appendChild(right2);
+
+                    const list = document.getElementById("list");
+                    list.appendChild(state);
+                    list.appendChild(document.createElement("br"));
+                    list.appendChild(document.createElement("br"));
+                    list.appendChild(document.createElement("br"));
+                    list.appendChild(document.createElement("br"));
+
+                }
+            }
+            xmlHttpRequest.open("GET", "rest/system/", true);
+            xmlHttpRequest.send();
+
+        }
+        
         function displaySensors() {
+            list.innerHTML = "";
             const xmlHttpRequest = new XMLHttpRequest();
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
@@ -104,35 +169,10 @@
                     const sensors = JSON.parse(response);
 
                     const list = document.getElementById("list");
-                    list.innerHTML = "";
 
                     if (sensors.length > 0) {
 
-                        const state = document.createElement("li");
-                        state.setAttribute("id", "system");
-                        let left = document.createElement("div");
-                        let right1 = document.createElement("div");
-                        let right2 = document.createElement("div");
-                        left.setAttribute("class", "left");
-                        left.innerText = "System State:";
-                        right1.setAttribute("class", "right");
-                        right2.setAttribute("class", "right");
-                        let armed = document.createElement("div");
-                        let alarm = document.createElement("div");
-                        armed.setAttribute("class", "rectangle1");
-                        armed.innerText = "ARMED";
-                        alarm.setAttribute("class", "rectangle1");
-                        alarm.innerText = "ALARM";
-                        right1.appendChild(armed);
-                        right2.appendChild(alarm);
-                        state.appendChild(left);
-                        state.appendChild(right1);
-                        state.appendChild(right2);
-                        list.appendChild(state);
-                        list.appendChild(document.createElement("br"));
-                        list.appendChild(document.createElement("br"));
-                        list.appendChild(document.createElement("br"));
-                        list.appendChild(document.createElement("br"));
+                        displayState();
 
                         for (let i = 0; i < sensors.length; i++) {
                             const sensor = document.createElement("li");

@@ -68,7 +68,6 @@ public class EmailService extends HttpServlet {
         int sid = 0;
 
         Email email = new Email(eid, sid, emailString);
-        System.out.println(emailString);
         addEmailToDB(email);
 
     }

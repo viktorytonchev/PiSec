@@ -20,4 +20,28 @@ public class System {
         this.password = password;
         this.pin = pin;
     }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public String getPassword(){
+        return this.password;
+    }
+
+    public boolean isArmed(){
+        return this.armed;
+    }
+
+    public boolean isAlarm(){
+        return this.alarm;
+    }
+
+    public int getSid(){
+        return this.sid;
+    }
+
+    public int getPin(){
+        return this.pin;
+    }
 }

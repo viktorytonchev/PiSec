@@ -28,7 +28,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="displayEmails()">
 
 <div class="text-center">
     <img src="utwenteloginlogo.png" alt="Logo" class="img-fluid" width="300"/>
@@ -47,9 +47,9 @@
             <h5 class="card-header">Add E-mail :</h5>
             <div class="card-body">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary" onclick="displayEmails()">Add</button>
 
             </div>
 
@@ -94,18 +94,19 @@
                 const emails = JSON.parse(response);
                 if (emails.length > 0) {
                     const list = document.getElementById("email-values");
+                    list.innerHTML = "";
 
                     for (let i = 0; i < emails.length; i++) {
                         // const emailValue = document.createElement("li");
                         var newEmail = document.createElement("tr");
-                        newEmail.setAttribute("id", project[i].eid);
+                        newEmail.setAttribute("id", emails[i].eid);
                         var insideEmail = document.createElement("td");
-                        insideEmail.innerText= email.email;
+                        insideEmail.innerText= emails[i].email;
                         newEmail.appendChild(insideEmail);
                         var insideButton = document.createElement("button");
                         insideButton.setAttribute("type", "button");
                         insideButton.setAttribute("class", "btn btn-danger");
-                        insideButton.setAttribute("id", project[i].eid)
+                        insideButton.setAttribute("id", emails[i].eid)
                         insideButton.innerText = "REMOVE";
                         newEmail.appendChild(insideButton);
 

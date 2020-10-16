@@ -59,7 +59,7 @@ public class EmailService extends HttpServlet {
 
     @POST
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public void createEmailFromForm(@FormParam("email") String emailString){
+    public void createEmailFromForm(@FormParam("exampleInputEmail1") String emailString){
 //                                      ,final @CookieParam("sid") String sid) {
 
 //        int sid = Integer.parseInt(sid);
@@ -68,6 +68,7 @@ public class EmailService extends HttpServlet {
         int sid = 0;
 
         Email email = new Email(eid, sid, emailString);
+        System.out.println(emailString);
         addEmailToDB(email);
 
     }

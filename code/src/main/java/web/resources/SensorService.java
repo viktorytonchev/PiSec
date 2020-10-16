@@ -28,7 +28,7 @@ public class SensorService {
                     dbuser, passwd);
             conn.setAutoCommit(true);
             conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            String query = "SELECT * FROM " + dbuser + ".pisec.sensor s ORDER BY s.sid";
+            String query = "SELECT * FROM " + dbuser + ".pisec.sensor s ORDER BY s.name";
             PreparedStatement st = conn.prepareStatement(query);
             ResultSet resultSet = st.executeQuery();
             int sid;

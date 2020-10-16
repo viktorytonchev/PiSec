@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container col-md-6">
-    <form action="/pisec/rest/registerEmail" method="POST">
+    <form action="/rest/registerEmail" method="POST">
         <div class="text-center">
             <img src="utwenteloginlogo.png" alt="Logo" class="img-fluid" width="300"/>
         </div>
@@ -29,44 +29,44 @@
 
     </form>
 
-    <div class="text-center">
-        <button class="shadow -lg" id = "back" onclick="location.replace('/lifecycle/main')"> Go Back </button>
-    </div>
+<!--    <div class="text-center">-->
+<!--        <button class="shadow -lg" id = "back"   onclick="location.replace('/lifecycle/main')"> Go Back </button>-->
+<!--    </div>-->
 </div>
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-<script>
-    $("#isInternal").change(function () {
-        if ($(this).val() === "internal") {
-            $('#firstOption').show();
-            // $('#researchGroup').attr('required', '');
-            // $('#researchGroup').attr('data-error', 'This field is required.');
+<!--<script>-->
+<!--    $("#isInternal").change(function () {-->
+<!--        if ($(this).val() === "internal") {-->
+<!--            $('#firstOption').show();-->
+<!--            // $('#researchGroup').attr('required', '');-->
+<!--            // $('#researchGroup').attr('data-error', 'This field is required.');-->
 
-            $('#secondOption').hide();
-            // $('#company').removeAttr('required');
-            // $('#company').removeAttr('data-error');
-        } else if ($(this).val() === "external") {
-            $('#secondOption').show();
-            // $('#company').attr('required', '');
-            // $('#company').attr('data-error', 'This field is required.');
+<!--            $('#secondOption').hide();-->
+<!--            // $('#company').removeAttr('required');-->
+<!--            // $('#company').removeAttr('data-error');-->
+<!--        } else if ($(this).val() === "external") {-->
+<!--            $('#secondOption').show();-->
+<!--            // $('#company').attr('required', '');-->
+<!--            // $('#company').attr('data-error', 'This field is required.');-->
 
-            $('#firstOption').hide();
-            // $('#researchGroup').removeAttr('required');
-            // $('#researchGroup').removeAttr('data-error');
+<!--            $('#firstOption').hide();-->
+<!--            // $('#researchGroup').removeAttr('required');-->
+<!--            // $('#researchGroup').removeAttr('data-error');-->
 
-        } else {
-            $('#firstOption').hide();
-            // $('#researchGroup').removeAttr('required');
-            // $('#researchGroup').removeAttr('data-error');
-            $('#secondOption').hide();
-            // $('#company').removeAttr('required');
-            // $('#company').removeAttr('data-error');
-        }
-    });
-    $("#isInternal").trigger("change");
+<!--        } else {-->
+<!--            $('#firstOption').hide();-->
+<!--            // $('#researchGroup').removeAttr('required');-->
+<!--            // $('#researchGroup').removeAttr('data-error');-->
+<!--            $('#secondOption').hide();-->
+<!--            // $('#company').removeAttr('required');-->
+<!--            // $('#company').removeAttr('data-error');-->
+<!--        }-->
+<!--    });-->
+<!--    $("#isInternal").trigger("change");-->
 
-</script>
+<!--</script>-->
 </body>
 </html>

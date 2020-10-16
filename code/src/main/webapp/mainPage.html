@@ -94,15 +94,15 @@
         }
     </style>
 
-<!--    <script>-->
-<!--        let x = 0;-->
-<!--        function armdisarm() {-->
-<!--            if(x%2 === 0){-->
-<!--                let state = this.getElementById("state");-->
+    <!--    <script>-->
+    <!--        let x = 0;-->
+    <!--        function armdisarm() {-->
+    <!--            if(x%2 === 0){-->
+    <!--                let state = this.getElementById("state");-->
 
-<!--            }-->
-<!--        }-->
-<!--    </script>-->
+    <!--            }-->
+    <!--        }-->
+    <!--    </script>-->
 </head>
 <body style="background-color: #ffffff">
 
@@ -115,10 +115,11 @@
         <li>
             <div class="left"> System State:</div>
             <div class="right" id="state">
-                <div class="rectangle1">ARMED</div>
+                <button class="shadow -lg rectangle1"> ARMED</button>
             </div>
             <div class="right">
-                <div class="rectangle1"> ALARM</div>
+                <button class="shadow -lg rectangle1"> Register</button>
+                ALARM
             </div>
         </li>
         <br>
@@ -180,7 +181,7 @@
     <ul>
         <li>
             <div style="width: 67%; float: right;">
-                <button class="rectangle3" onclick="armdisarm()"> ARM/DISARM <br> SYSTEM </button>
+                <button class="rectangle3" onclick="armdisarm()"> ARM/DISARM <br> SYSTEM</button>
             </div>
         </li>
         <br>
@@ -189,7 +190,7 @@
         <br>
         <li>
             <div style="width: 63%; float: right;">
-                <button class="rectangle4"> CHANGE PIN </button>
+                <button class="rectangle4"> CHANGE PIN</button>
             </div>
         </li>
         <br>
@@ -198,7 +199,7 @@
         <br>
         <li>
             <div style="width: 63%; float: right;">
-                <button class="rectangle5"> Edit emails </button>
+                <button class="rectangle5"> Edit emails</button>
             </div>
         </li>
     </ul>

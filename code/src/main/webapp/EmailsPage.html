@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lifecycle login form</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="loginstyle.css">
+    <!--    <link rel="stylesheet" href="registerstyle.css">-->
+    <style>
+        #rcorners1 {
+            border-radius: 25px;
+            border: 2px solid #000000;
+            width: 1200px;
+            height: 800px;
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            margin-left: -500px;
+            margin-top: -50px;
+            padding: 75px 150px 75px 150px;
+        }
+
+        td{
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="text-center">
+    <img src="utwenteloginlogo.png" alt="Logo" class="img-fluid" width="300"/>
+</div>
+<form method="post" action="/rest/registerEmail" id="rcorners1">
+
+    <div class="container col-md-12">
+
+        <div class="text-center">
+            <h2><strong> Manage E-mails</strong></h2>
+        </div>
+        <br>
+    </div>
+    <div class="containes col-md-12">
+        <div class="card">
+            <h5 class="card-header">Add E-mail :</h5>
+            <div class="card-body">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <button type="submit" class="btn btn-primary">Add</button>
+
+            </div>
+
+        </div>
+    </div>
+    <dv>
+
+    </dv>
+    <div class="container col-md-12">
+        <div class="text-center justify-content-center">
+            <table class="table" id="email-values">
+                <script>displayEmails()</script>
+<!--                <tr>-->
+<!--                    <th colspan="2"> Existing emails</th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td id="tr1">m.l.m.p@student.utwente.nl</td>-->
+<!--                    <th><button type="button" class="btn btn-danger">REMOVE</button></th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td >randomStudent@student.utwente.nl</td>-->
+<!--                    <th><button type="button" class="btn btn-danger">REMOVE</button></th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>marcus.pk@utwente.nl</td>-->
+<!--                    <th><button type="button" class="btn btn-danger">REMOVE</button></th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>mauryciomer@gmail.com</td>-->
+<!--                    <th><button type="button" class="btn btn-danger">REMOVE</button></th>-->
+<!--                </tr>-->
+            </table>
+        </div>
+    </div>
+ <script>
+
+    function displayEmails(){
+        const xmlHttpRequest = new XMLHttpRequest();
+        xmlHttpRequest.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                const response = this.responseText;
+                const emails = JSON.parse(response);
+                if (emails.length > 0) {
+                    const list = document.getElementById("email-values");
+
+                    for (let i = 0; i < emails.length; i++) {
+                        // const emailValue = document.createElement("li");
+                        var newEmail = document.createElement("tr");
+                        newEmail.setAttribute("id", project[i].eid);
+                        var insideEmail = document.createElement("td");
+                        insideEmail.innerText= email.email;
+                        newEmail.appendChild(insideEmail);
+                        var insideButton = document.createElement("button");
+                        insideButton.setAttribute("type", "button");
+                        insideButton.setAttribute("class", "btn btn-danger");
+                        insideButton.setAttribute("id", project[i].eid)
+                        insideButton.innerText = "REMOVE";
+                        newEmail.appendChild(insideButton);
+
+                        list.appendChild(newEmail);
+                        // projectTitle.setAttribute("class", "text-center")
+                        // const pid = projects[i].pid;
+                        // const project = "project";
+                        // var titleButton = document.createElement("button");
+                        // titleButton.setAttribute("class", "shadow-lg");
+                        // titleButton.setAttribute("id", project + pid);
+                        // titleButton.setAttribute("onclick", "displayProject(this.id);");
+                        // titleButton.onclick = function () {
+                        //     displayProject(this.id);
+                        // };
+                        // titleButton.innerText = projects[i].name;
+                        // projectTitle.appendChild(titleButton);
+                        // list.appendChild(projectTitle);
+
+
+                    }
+                }
+            }
+        }
+        xmlHttpRequest.open("GET", "rest/displayEmails/all", true);
+        xmlHttpRequest.send();
+    }
+
+ </script>
+
+</form>
+</body>
+</html>

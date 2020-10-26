@@ -1,5 +1,6 @@
 package web.resources;
 
+import org.junit.experimental.theories.FromDataPoints;
 import web.db.DatabaseQueries;
 import web.login.Security;
 import web.model.Email;
@@ -98,6 +99,40 @@ public class EmailService extends HttpServlet {
             try {
                 st.executeQuery();
             } catch (SQLException ignored) {
+            }
+
+//            NotificationMailer.executeSendNewProject(project.getPid());
+
+            conn.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Path("deleteEmail/{eid}")
+    @DELETE
+    public void deleteEmail(@PathParam("eid") int eid){
+        System.out.println(eid);
+        Connection conn;
+        String dbuser = Security.DB_USER;
+        String passwd = Security.DB_PASSWORD;
+        try {
+            Class.forName("org.postgresql.Driver");
+            conn = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl/" + dbuser,
+                    dbuser, passwd);
+            conn.setAutoCommit(true);
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            String query;
+
+            query = "DELETE FROM " + dbuser + ".pisec.Email " + "AS e " +
+                    "WHERE e.eid = " + eid + ";";
+
+            PreparedStatement st = conn.prepareStatement(query);
+            try {
+                st.executeQuery();
+            } catch (SQLException ignored) {
+                System.out.println(ignored.getMessage());
             }
 
 //            NotificationMailer.executeSendNewProject(project.getPid());

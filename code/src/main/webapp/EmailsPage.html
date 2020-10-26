@@ -49,8 +49,7 @@
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                <button type="submit" class="btn btn-primary" onclick="displayEmails()">Add</button>
-
+                <button type="submit" class="btn btn-primary" onclick="setTimeout(function(){displayEmails();},2000)">Add</button>
             </div>
 
         </div>
@@ -108,6 +107,10 @@
                         insideButton.setAttribute("class", "btn btn-danger");
                         insideButton.setAttribute("id", emails[i].eid)
                         insideButton.innerText = "REMOVE";
+
+                        // insideButton.setAttribute("onclick", "removeEmail("+emails[i].eid+")")
+                        insideButton.onclick = function(){removeEmail(emails[i].eid)};
+
                         newEmail.appendChild(insideButton);
 
                         list.appendChild(newEmail);
@@ -124,6 +127,25 @@
 
  </script>
 
+    <script>
+        function removeEmail(eid) {
+            const xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                }
+            }
+
+            var url = "rest/registerEmail/deleteEmail/" + eid;
+            // alert(url);
+
+            xmlHttpRequest.open("DELETE", url , true);
+            xmlHttpRequest.send();
+            //Wait 2 seconds before refreshing:
+            setTimeout(function () {
+                displayEmails();
+            },2000);
+        }
+    </script>
 </form>
 </body>
 </html>

@@ -9,6 +9,7 @@ from pi import security
 SYSTEM_STATE = None
 state_lock = Lock()
 
+
 def get_system_state():
     conn = None
     try:
@@ -18,7 +19,7 @@ def get_system_state():
             user=security.db_user,
             password=security.db_password)
         cur = conn.cursor()
-        cur.execute("SELECT s.armed FROM dab_di19202b_226.pisec.system s") # where sid = ...
+        cur.execute("SELECT s.armed FROM dab_di19202b_226.pisec.system s")  # where sid = ...
         record = cur.fetchone()
         for row in record:
             armed = row[0]
@@ -29,6 +30,7 @@ def get_system_state():
         if conn is not None:
             conn.close()
 
+
 def system_state_controller(arg):
     while True:
         sleep(0.01)
@@ -37,6 +39,7 @@ def system_state_controller(arg):
             SYSTEM_STATE = get_system_state()
         finally:
             state_lock.release()
+
 
 def main():
     GPIO.setmode(GPIO.BCM)
@@ -58,6 +61,7 @@ def main():
             thread = Thread(target=update_sensor_status, args=(False,))
             thread.start()
             current = False
+
 
 def update_sensor_status(arg):
     conn = None

@@ -147,11 +147,8 @@
                     state.appendChild(right2);
 
                     const list = document.getElementById("list");
-                    list.appendChild(state);
-                    list.appendChild(document.createElement("br"));
-                    list.appendChild(document.createElement("br"));
-                    list.appendChild(document.createElement("br"));
-                    list.appendChild(document.createElement("br"));
+                    const li = document.getElementById("li");
+                    li.innerHTML = state.innerHTML;
 
                 }
             }
@@ -160,19 +157,45 @@
 
         }
         
+        function setup(l) {
+
+            let list = document.getElementById("list");
+
+            if(!list.hasChildNodes()){
+                let li = document.createElement("li");
+                li.setAttribute("id", "li");
+                list.appendChild(li);
+                list.appendChild(document.createElement("br"));
+                list.appendChild(document.createElement("br"));
+                list.appendChild(document.createElement("br"));
+                list.appendChild(document.createElement("br"));
+
+                for(let i = 0; i < l; i++){
+                    let li = document.createElement("li");
+                    li.setAttribute("id", "li" + i);
+                    list.appendChild(li);
+                    list.appendChild(document.createElement("br"));
+                    list.appendChild(document.createElement("br"));
+                    list.appendChild(document.createElement("br"));
+                    list.appendChild(document.createElement("br"));
+                }
+            }
+
+        }
+        
         function displaySensors() {
-            list.innerHTML = "";
+
             const xmlHttpRequest = new XMLHttpRequest();
             xmlHttpRequest.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
                     const response = this.responseText;
                     const sensors = JSON.parse(response);
 
-                    const list = document.getElementById("list");
+                    setup(sensors.length);
+
+                    displayState();
 
                     if (sensors.length > 0) {
-
-                        displayState();
 
                         for (let i = 0; i < sensors.length; i++) {
                             const sensor = document.createElement("li");
@@ -192,11 +215,8 @@
                             sensor.appendChild(left);
                             right.appendChild(rect);
                             sensor.appendChild(right);
-                            list.appendChild(sensor);
-                            list.appendChild(document.createElement("br"));
-                            list.appendChild(document.createElement("br"));
-                            list.appendChild(document.createElement("br"));
-                            list.appendChild(document.createElement("br"));
+                            const li = document.getElementById("li" + i);
+                            li.innerHTML = sensor.innerHTML;
                         }
                     }
                 }

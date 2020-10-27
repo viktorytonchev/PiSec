@@ -25,3 +25,4 @@ out
 /dist/
 /nbdist/
 /.nb-gradle/
+/code/src/main/java/pi/security.py

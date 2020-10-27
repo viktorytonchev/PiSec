@@ -114,7 +114,6 @@ public class EmailService extends HttpServlet {
     @Path("deleteEmail/{eid}")
     @DELETE
     public void deleteEmail(@PathParam("eid") int eid){
-        System.out.println(eid);
         Connection conn;
         String dbuser = Security.DB_USER;
         String passwd = Security.DB_PASSWORD;

@@ -1,5 +1,7 @@
 package web.resources;
 
+import notifications.NotificationMailer;
+import org.junit.experimental.theories.FromDataPoints;
 import web.db.DatabaseQueries;
 import web.login.Security;
 import web.model.Email;
@@ -20,7 +22,7 @@ public class EmailService extends HttpServlet {
 
 
     /**
-     * Returns a pid for a new project
+     * Returns an eid for a new email.
      * @return - new pid
      */
     public int getEid() {
@@ -100,8 +102,42 @@ public class EmailService extends HttpServlet {
             } catch (SQLException ignored) {
             }
 
-//            NotificationMailer.executeSendNewProject(project.getPid());
+            NotificationMailer.executeSendNewEmailNotification(email.getEmail());
 
+            conn.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Path("deleteEmail/{eid}")
+    @DELETE
+    public void deleteEmail(@PathParam("eid") int eid){
+        System.out.println(eid);
+        Connection conn;
+        String dbuser = Security.DB_USER;
+        String passwd = Security.DB_PASSWORD;
+        String emailRecipient = DatabaseQueries.getEmailFromEid(eid);
+        try {
+            Class.forName("org.postgresql.Driver");
+            conn = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl/" + dbuser,
+                    dbuser, passwd);
+            conn.setAutoCommit(true);
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            String query;
+
+            query = "DELETE FROM " + dbuser + ".pisec.Email " + "AS e " +
+                    "WHERE e.eid = " + eid + ";";
+
+            PreparedStatement st = conn.prepareStatement(query);
+            try {
+                st.executeQuery();
+            } catch (SQLException ignored) {
+                System.out.println(ignored.getMessage());
+            }
+
+            NotificationMailer.executeSendDeletedEmailNotification(emailRecipient);
             conn.close();
 
         } catch (ClassNotFoundException | SQLException e) {

@@ -2,83 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+          crossorigin="anonymous">
+    <title>Sec Pi</title>
     <style>
-        .rectangle1 {
-            background-color: #00FF66;
-            text-align: center;
-            padding-top: 18px;
-            width: 80px;
-            height: 40px;
-            border-radius: 15px;
-            font-size: large;
-
+        .card{
+            box-shadow: 5px 5px 2px 1px rgba(0, 0, 125, .2);
+            width: 40%;
+            position: center;
+            margin-left: 25px;
+            margin-top:150px;
         }
-
-        .rectangle2 {
-            background-color: #FF3366;
-            text-align: center;
-            padding-top: 18px;
-            width: 80px;
-            height: 40px;
-            border-radius: 15px;
-            font-size: large;
-
-        }
-
-        .rectangle21 {
-            background-color: #FF3366;
-            text-align: center;
-            padding-top: 18px;
-            width: 80px;
-            height: 40px;
-            border-radius: 15px;
-            font-size: medium;
-
-        }
-
-        .rectangle3 {
-            background-color: #33CCFF;
-            text-align: center;
-            color: white;
-            padding-top: 5px;
-            width: 150px;
-            height: 55px;
-            text-align: center;
-            border-radius: 15px;
-            font-size: large;
-        }
-
-        .rectangle4 {
-            background-color: #DD4C9C;
-            color: white;
-            text-align: center;
-            padding-top: 5px;
-            text-align: center;
-            width: 100px;
-            height: 55px;
-            text-align: center;
-            border-radius: 15px;
-            font-size: large;
-        }
-
-        .rectangle5 {
-            background-color: #209284;
-            color: white;
-            text-align: center;
-            padding-top: 5px;
-            text-align: center;
-            width: 100px;
-            height: 55px;
-            text-align: center;
-            border-radius: 15px;
-            font-size: large;
-        }
-
         li {
             list-style: none;
         }
-
+        btn btn-danger{
+            float: left;
+        }
         .left {
             width: 50%;
             float: left;
@@ -92,21 +34,8 @@
             color: white;
         }
 
-        nav.projectlist ul {
-            height: 50%;
-            /*width: 18%;*/
-            /*position: absolute;*/
-        }
-
-
-        nav.projectlist ul {
-            overflow: hidden;
-            overflow-y: scroll
-        }
     </style>
-
     <script>
-
         function displayState() {
             const xmlHttpRequest = new XMLHttpRequest();
             xmlHttpRequest.onreadystatechange = function () {
@@ -126,16 +55,16 @@
                     let armed = document.createElement("div");
                     let alarm = document.createElement("div");
                     if(system.alarm){
-                        alarm.setAttribute("class", "rectangle2");
+                        alarm.setAttribute("class", "btn btn-danger");
                     } else{
-                        alarm.setAttribute("class", "rectangle1");
+                        alarm.setAttribute("class", "btn btn-primary");
                     }
                     alarm.innerText = "ALARM";
                     if(system.armed){
-                        armed.setAttribute("class", "rectangle1");
+                        armed.setAttribute("class", "btn btn-success");
                         armed.innerText = "ARMED";
                     } else{
-                        armed.setAttribute("class", "rectangle21");
+                        armed.setAttribute("class", "btn btn-info");
                         armed.innerText = "UNARMED";
                     }
 
@@ -156,7 +85,7 @@
             xmlHttpRequest.send();
 
         }
-        
+
         function setup(l) {
 
             let list = document.getElementById("list");
@@ -182,7 +111,7 @@
             }
 
         }
-        
+
         function displaySensors() {
 
             const xmlHttpRequest = new XMLHttpRequest();
@@ -205,10 +134,10 @@
                             left.setAttribute("class", "left");
                             right.setAttribute("class", "right");
                             if(sensors[i].open){
-                                rect.setAttribute("class", "rectangle2");
+                                rect.setAttribute("class", "btn btn-primary");
                                 rect.innerText = "OPEN";
                             } else {
-                                rect.setAttribute("class", "rectangle1");
+                                rect.setAttribute("class", "btn btn-danger");
                                 rect.innerText = "CLOSED";
                             }
                             left.innerText = sensors[i].name+":";
@@ -230,46 +159,54 @@
         }
     </script>
 </head>
-<body style="background-color: #ffffff" onload="displaySensors()">
-
-<div id="sensors" style="width: 40%; float: left; border: 2px solid black" class="text-center">
-
-    <header style="font-size: xx-large; color: #844a76; text-align: center"><b>Your info: </b></header>
-    <hr>
-
-    <ul id="list"></ul>
-<!--    <button class="right" onclick="displaySensors()" style="margin-bottom: 10px; margin-right: 30px; background-color: #DD4C9C; color: white; padding: 14px 20px; border-radius: 5px">Reload</button>-->
+<body onload="displaySensors()">
+<div>
+    <h1 class="display-4">Pi Sec</h1>
 </div>
 
+<div class="mx-auto" >
 
-<div class="panel panel-default" id="settings" style="width: 40%; float: right; border: 2px solid black;">
-    <header style="font-size: xx-large; color: #844a76; text-align: center"><b>Settings: </b></header>
-    <hr>
-    <ul>
-        <li>
-            <div style="width: 67%; float: right;">
-                <button class="rectangle3" style="outline: 0" onclick="armdisarm()"> ARM/DISARM <br> SYSTEM </button>
-            </div>
-        </li>
-        <br>
-        <br>
-        <br>
-        <br>
-        <li>
-            <div style="width: 63%; float: right;">
-                <button class="rectangle4" style="outline: 0"> CHANGE PIN </button>
-            </div>
-        </li>
-        <br>
-        <br>
-        <br>
-        <br>
-        <li>
-            <div style="width: 63%; float: right; margin-bottom: 10px;">
-                <button class="rectangle5" style="outline: 0" onclick="location.href='/emails'"> Edit emails </button>
-            </div>
-        </li>
-    </ul>
+    <div id="sensors" class="card" style="float: left;">
+        <div class="card-body">
+            <h4 class="car-title test-center" >System Information</h4>
+        </div>
+        <div>
+            <ul  id="list" class="list-group list-group-flush"></ul>
+            <ul  class="list-group list-group-flush">
+                <!--button-->
+                <button type="button" class="btn btn-square btn-danger" onclick="displaySensors()">Reload</button>
+            </ul>
+        </div>
+
+    </div>
+
+    <div id="settings" class="card"  style="float: right;margin-right: 25px;">
+        <div class="card-body">
+            <h4 class="car-title test-center">Settings</h4>
+        </div>
+        <div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div style="width: 63%; float: right;">
+                        <button type="button" class="btn btn-info" onclick="armdisarm()"> ARM/DISARM <br> SYSTEM </button>
+                    </div>
+                </li>
+
+                <li class="list-group-item">
+                    <div style="width: 63%; float: right;">
+                        <button type="button" class="btn btn-info" > CHANGE PIN </button>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div style="width: 63%; float: right; margin-bottom: 10px;">
+                        <button type="button" class="btn btn-warning" onclick="location.href='/emails'"> Edit emails </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
 </div>
 
 </body>

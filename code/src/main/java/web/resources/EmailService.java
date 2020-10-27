@@ -1,5 +1,6 @@
 package web.resources;
 
+import notifications.NotificationMailer;
 import org.junit.experimental.theories.FromDataPoints;
 import web.db.DatabaseQueries;
 import web.login.Security;
@@ -21,7 +22,7 @@ public class EmailService extends HttpServlet {
 
 
     /**
-     * Returns a pid for a new project
+     * Returns an eid for a new email.
      * @return - new pid
      */
     public int getEid() {
@@ -101,7 +102,7 @@ public class EmailService extends HttpServlet {
             } catch (SQLException ignored) {
             }
 
-//            NotificationMailer.executeSendNewProject(project.getPid());
+            NotificationMailer.executeSendNewEmailNotification(email.getEmail());
 
             conn.close();
 
@@ -117,6 +118,7 @@ public class EmailService extends HttpServlet {
         Connection conn;
         String dbuser = Security.DB_USER;
         String passwd = Security.DB_PASSWORD;
+        String emailRecipient = DatabaseQueries.getEmailFromEid(eid);
         try {
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl/" + dbuser,
@@ -135,8 +137,7 @@ public class EmailService extends HttpServlet {
                 System.out.println(ignored.getMessage());
             }
 
-//            NotificationMailer.executeSendNewProject(project.getPid());
-
+            NotificationMailer.executeSendDeletedEmailNotification(emailRecipient);
             conn.close();
 
         } catch (ClassNotFoundException | SQLException e) {

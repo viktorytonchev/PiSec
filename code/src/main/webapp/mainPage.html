@@ -223,6 +223,10 @@
             }
             xmlHttpRequest.open("GET", "rest/sensors/", true);
             xmlHttpRequest.send();
+
+            setTimeout(function () {
+                displaySensors();
+            },500);
         }
     </script>
 </head>
@@ -234,7 +238,7 @@
     <hr>
 
     <ul id="list"></ul>
-    <button class="right" onclick="displaySensors()" style="margin-bottom: 10px; margin-right: 30px; background-color: #DD4C9C; color: white; padding: 14px 20px; border-radius: 5px">Reload</button>
+<!--    <button class="right" onclick="displaySensors()" style="margin-bottom: 10px; margin-right: 30px; background-color: #DD4C9C; color: white; padding: 14px 20px; border-radius: 5px">Reload</button>-->
 </div>
 
 

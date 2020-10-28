@@ -44,7 +44,7 @@ public class PINService {
                 exception.printStackTrace();
             }
 
-//            NotificationMailer.executeSendNewEmailNotification(email.getEmail());
+            NotificationMailer.executeSendChangedPINNotification();
 
             conn.close();
 

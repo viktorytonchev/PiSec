@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PIN Form</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    >
+    <link rel="stylesheet" href="changePIN.css">
+</head>
+
+
+
+<body>
+<div class="container col-md-6">
+    <form action="/rest/changePIN" method="POST">
+        <div class="text-center">
+            <img src="utwenteloginlogo.png" alt="Logo" class="img-fluid" width="300"/>
+        </div>
+
+        <br>
+
+        <label for="PIN"><b>Project name</b></label>
+        <input id="PIN" name="PIN" placeholder="Enter your new PIN here: " type="text">
+
+        <div class="text-center">
+            <button class="shadow -lg" id = "update" type="submit">Change PIN</button>
+        </div>
+    </form>
+<!--    <div class="text-center">-->
+<!--        <button class="shadow -lg" id = "back" onclick="location.replace('/lifecycle/myProject')"> Go Back</button>-->
+<!--    </div>-->
+
+</div>
+
+</body>
+</html>

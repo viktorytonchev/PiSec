@@ -8,19 +8,22 @@
           crossorigin="anonymous">
     <title>Sec Pi</title>
     <style>
-        .card{
+        .card {
             box-shadow: 5px 5px 2px 1px rgba(0, 0, 125, .2);
             width: 40%;
             position: center;
             margin-left: 25px;
-            margin-top:150px;
+            margin-top: 150px;
         }
+
         li {
             list-style: none;
         }
-        btn btn-danger{
+
+        btn btn-danger {
             float: left;
         }
+
         .left {
             width: 50%;
             float: left;
@@ -36,10 +39,11 @@
 
     </style>
     <script>
+
         function displayState() {
             const xmlHttpRequest = new XMLHttpRequest();
             xmlHttpRequest.onreadystatechange = function () {
-                if(this.readyState == 4 && this.status === 200){
+                if (this.readyState == 4 && this.status === 200) {
                     const response = this.responseText;
                     const system = JSON.parse(response);
 
@@ -54,18 +58,18 @@
                     right2.setAttribute("class", "right");
                     let armed = document.createElement("div");
                     let alarm = document.createElement("div");
-                    if(system.alarm){
+                    if (system.alarm) {
                         alarm.setAttribute("class", "btn btn-danger");
-                    } else{
+                    } else {
                         alarm.setAttribute("class", "btn btn-primary");
                     }
                     alarm.innerText = "ALARM";
-                    if(system.armed){
+                    if (system.armed) {
                         armed.setAttribute("class", "btn btn-success");
                         armed.innerText = "ARMED";
-                    } else{
+                    } else {
                         armed.setAttribute("class", "btn btn-info");
-                        armed.innerText = "UNARMED";
+                        armed.innerText = "DISARMED";
                     }
 
 
@@ -90,7 +94,7 @@
 
             let list = document.getElementById("list");
 
-            if(!list.hasChildNodes()){
+            if (!list.hasChildNodes()) {
                 let li = document.createElement("li");
                 li.setAttribute("id", "li");
                 list.appendChild(li);
@@ -99,7 +103,7 @@
                 list.appendChild(document.createElement("br"));
                 list.appendChild(document.createElement("br"));
 
-                for(let i = 0; i < l; i++){
+                for (let i = 0; i < l; i++) {
                     let li = document.createElement("li");
                     li.setAttribute("id", "li" + i);
                     list.appendChild(li);
@@ -133,14 +137,14 @@
                             let rect = document.createElement("div")
                             left.setAttribute("class", "left");
                             right.setAttribute("class", "right");
-                            if(sensors[i].open){
+                            if (sensors[i].open) {
                                 rect.setAttribute("class", "btn btn-primary");
                                 rect.innerText = "OPEN";
                             } else {
                                 rect.setAttribute("class", "btn btn-danger");
                                 rect.innerText = "CLOSED";
                             }
-                            left.innerText = sensors[i].name+":";
+                            left.innerText = sensors[i].name + ":";
                             sensor.appendChild(left);
                             right.appendChild(rect);
                             sensor.appendChild(right);
@@ -155,7 +159,28 @@
 
             setTimeout(function () {
                 displaySensors();
-            },500);
+            }, 500);
+        }
+        
+        function armDisarm() {
+
+            let pin = prompt("Please enter your PIN:");
+
+            const xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.onreadystatechange = function () {
+                if(this.readyState === 4 && this.status === 200){
+                    if (JSON.parse(this.responseText)) {
+                        const xmlHttpRequest1 = new XMLHttpRequest();
+                        xmlHttpRequest1.open("POST", "/rest/system/arm", true);
+                        xmlHttpRequest1.send();
+                    } else {
+                        alert("Incorrect PIN");
+                    }
+                }
+            }
+
+            xmlHttpRequest.open("GET", "rest/system/" + pin, true);
+            xmlHttpRequest.send();
         }
     </script>
 </head>
@@ -164,23 +189,22 @@
     <h1 class="display-4">Pi Sec</h1>
 </div>
 
-<div class="mx-auto" >
+<div class="mx-auto">
 
     <div id="sensors" class="card" style="float: left;">
         <div class="card-body">
-            <h4 class="car-title test-center" >System Information</h4>
+            <h4 class="car-title test-center">System Information</h4>
         </div>
         <div>
-            <ul  id="list" class="list-group list-group-flush"></ul>
-            <ul  class="list-group list-group-flush">
-                <!--button-->
-                <button type="button" class="btn btn-square btn-danger" onclick="displaySensors()">Reload</button>
-            </ul>
+            <ul id="list" class="list-group list-group-flush"></ul>
+            <!--            <ul  class="list-group list-group-flush">-->
+            <!--                <button type="button" class="btn btn-square btn-danger" onclick="displaySensors()">Reload</button>-->
+            <!--            </ul>-->
         </div>
 
     </div>
 
-    <div id="settings" class="card"  style="float: right;margin-right: 25px;">
+    <div id="settings" class="card" style="float: right;margin-right: 25px;">
         <div class="card-body">
             <h4 class="car-title test-center">Settings</h4>
         </div>
@@ -188,18 +212,20 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <div style="width: 63%; float: right;">
-                        <button type="button" class="btn btn-info" onclick="armdisarm()"> ARM/DISARM <br> SYSTEM </button>
+                        <button type="button" class="btn btn-info" onclick="armDisarm()"> ARM/DISARM <br> SYSTEM
+                        </button>
                     </div>
                 </li>
 
                 <li class="list-group-item">
                     <div style="width: 63%; float: right;">
-                        <button type="button" class="btn btn-info" > CHANGE PIN </button>
+                        <button type="button" class="btn btn-info"> CHANGE PIN</button>
                     </div>
                 </li>
                 <li class="list-group-item">
                     <div style="width: 63%; float: right; margin-bottom: 10px;">
-                        <button type="button" class="btn btn-warning" onclick="location.href='/emails'"> Edit emails </button>
+                        <button type="button" class="btn btn-warning" onclick="location.href='/emails'"> Edit emails
+                        </button>
                     </div>
                 </li>
             </ul>

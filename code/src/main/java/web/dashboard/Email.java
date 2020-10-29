@@ -15,8 +15,9 @@ public class Email extends HttpServlet {
         if (req.getSession() != null && req.getSession ().getAttribute("logged_in") != null && (boolean) req.getSession().getAttribute("logged_in")) {
             RequestDispatcher rd = req.getRequestDispatcher("EmailsPage.html");
             rd.include(req, resp);
+        } else {
+            RequestDispatcher rd = req.getRequestDispatcher("login.html");
+            rd.include(req, resp);
         }
-        RequestDispatcher rd = req.getRequestDispatcher("login.html");
-        rd.include(req, resp);
     }
 }

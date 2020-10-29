@@ -24,9 +24,10 @@ public class Alarm extends HttpServlet {
                 rd = req.getRequestDispatcher("mainPage.html");
             }
             rd.include(req, resp);
+        } else {
+            RequestDispatcher rd = req.getRequestDispatcher("login.html");
+            rd.include(req, resp);
         }
 
-        RequestDispatcher rd = req.getRequestDispatcher("login.html");
-        rd.include(req, resp);
     }
 }

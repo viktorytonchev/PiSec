@@ -15,7 +15,6 @@
             margin-left: 25px;
             margin-top: 150px;
         }
-
         li {
             list-style: none;
         }
@@ -23,7 +22,6 @@
         btn btn-danger {
             float: left;
         }
-
         .left {
             width: 50%;
             float: left;
@@ -39,7 +37,6 @@
 
     </style>
     <script>
-
         function displayState() {
             const xmlHttpRequest = new XMLHttpRequest();
             xmlHttpRequest.onreadystatechange = function () {
@@ -162,7 +159,7 @@
                 displaySensors();
             }, 500);
         }
-        
+
         function armDisarm() {
 
             let pin = prompt("Please enter your PIN:");
@@ -204,6 +201,7 @@
         </div>
 
     </div>
+    <br>
 
     <div id="settings" class="card" style="float: right;margin-right: 25px;">
         <div class="card-body">
@@ -220,7 +218,7 @@
 
                 <li class="list-group-item">
                     <div style="width: 63%; float: right;">
-                        <button type="button" class="btn btn-info"> CHANGE PIN</button>
+                        <button type="button" class="btn btn-info"  onclick="location.href='changePIN.html'" > CHANGE PIN </button>
                     </div>
                 </li>
                 <li class="list-group-item">

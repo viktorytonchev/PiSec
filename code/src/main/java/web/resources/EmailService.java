@@ -95,7 +95,7 @@ public class EmailService extends HttpServlet {
                     query = "INSERT INTO " + dbuser + ".pisec.Email (eid, sid, email)" +
                             "VALUES ('" + email.getEid() + "', '" + email.getSid() + "', '" + email.getEmail() + "');";
 
-
+            //todo: add prepared statement
             PreparedStatement st = conn.prepareStatement(query);
             try {
                 st.executeQuery();

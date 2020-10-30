@@ -80,7 +80,22 @@ def system_state_controller():
 
 def initiate_alarm():
     print("alarm initialized")
-    # todo finalize alarm state
+    conn = None
+    try:
+        conn = db.connect(
+            host=security.db_host,
+            database=security.db_database,
+            user=security.db_user,
+            password=security.db_password)
+        cur = conn.cursor()
+        cur.execute("UPDATE dab_di19202b_226.pisec.system SET alarm = TRUE WHERE sid = 0")
+        conn.commit()
+
+    except (Exception, db.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
     # todo tested, works correctly
     return
 
@@ -106,19 +121,19 @@ def main():
         state = GPIO.input(sensor_gpio)
 
         if state and not current:
-            thread = Thread(target=update_sensor_status, args=(True,))
+            thread = Thread(target=update_sensor_status, args=(True, sensor_gpio))
             thread.start()
             current = True
 
         elif not state and current:
-            thread = Thread(target=update_sensor_status, args=(False,))
+            thread = Thread(target=update_sensor_status, args=(False, sensor_gpio))
             thread.start()
             current = False
 
         sensor_state_setter(current == 0)
 
 
-def update_sensor_status(arg):
+def update_sensor_status(state, sensor):
     conn = None
     try:
         conn = db.connect(
@@ -128,12 +143,12 @@ def update_sensor_status(arg):
             password=security.db_password)
         cur = conn.cursor()
 
-        if arg:
-            print("setting open = FALSE")
+        if state:
+            print("Sensor " + sensor + " setting open = FALSE")
             cur.execute("UPDATE dab_di19202b_226.pisec.sensor SET open = FALSE")
             conn.commit()
         else:
-            print("setting open = TRUE")
+            print("Sensor " + sensor + "setting open = TRUE")
             cur.execute("UPDATE dab_di19202b_226.pisec.sensor SET open = TRUE")
             conn.commit()
 

@@ -3,7 +3,7 @@
 |                          | **Names/Ids**  |
 |-------------------------:|:---------------|
 | *Project Name:*          |PiSec			|
-| *Meeting Date:*          |27/10/2020		|
+| *Meeting Date:*          |28/10/2020		|
 | *Present Team members:*  |Viktor, Yordan, Dimitar, Vladimirs, David, Mauricio|
 | *Team ID:*               |cs20-35			|
 | *Scrum  Master:*         |Viktor Tonchev|

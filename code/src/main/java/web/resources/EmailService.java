@@ -98,7 +98,7 @@ public class EmailService extends HttpServlet {
             //todo: add prepared statement
             PreparedStatement st = conn.prepareStatement(query);
             try {
-                st.executeQuery();
+                st.executeUpdate();
             } catch (SQLException ignored) {
             }
 
@@ -131,7 +131,7 @@ public class EmailService extends HttpServlet {
 
             PreparedStatement st = conn.prepareStatement(query);
             try {
-                st.executeQuery();
+                st.executeUpdate();
             } catch (SQLException ignored) {
                 System.out.println(ignored.getMessage());
             }

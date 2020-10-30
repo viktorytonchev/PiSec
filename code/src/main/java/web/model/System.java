@@ -6,13 +6,13 @@ public class System {
     boolean alarm;
     String name;
     String password;
-    int pin;
+    String pin;
 
     public System(){
 
     }
 
-    public System(int sid, boolean armed, boolean alarm, String name, String password, int pin){
+    public System(int sid, boolean armed, boolean alarm, String name, String password, String pin){
         this.sid = sid;
         this.armed =armed;
         this.alarm = alarm;
@@ -41,7 +41,7 @@ public class System {
         return this.sid;
     }
 
-    public int getPin(){
+    public String getPin(){
         return this.pin;
     }
 }

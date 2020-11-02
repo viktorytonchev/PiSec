@@ -3,7 +3,7 @@ function AlarmWindow(){
 }
 
 function AlarmState(){
-    let pin = document.getElementById("PinAlert");
+    let pin = document.getElementById("PinAlert").value;
     const xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -148,7 +148,7 @@ function displaySensors() {
 
 function armDisarm() {
 
-    var pin = document.getElementById("CheckPIN");
+    var pin = document.getElementById("CheckPIN").value;
 
     const xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
@@ -171,8 +171,8 @@ function armDisarm() {
 
 function changePIN() {
 
-    let oldPin = document.getElementById("oldPassword");
-    let newPin =document.getElementById("newPassword");
+    let oldPin = document.getElementById("oldPIN").value;
+    let newPin =document.getElementById("newPIN").value;
 
     const xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
@@ -181,7 +181,9 @@ function changePIN() {
                 const xmlHttpRequest1 = new XMLHttpRequest();
                 xmlHttpRequest1.open("POST", "/rest/changePIN/" + newPin, true);
                 xmlHttpRequest1.send();
-                setTimeout(function(){alert("PIN changed successfully!");},1000);
+                if(oldPin !== "" && newPin !== ""){
+                    setTimeout(function(){alert("PIN changed successfully!");},1000);
+                }
             } else {
                 alert("Incorrect PIN.");
             }

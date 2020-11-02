@@ -53,7 +53,6 @@ public class PINService {
 
     @POST
     @Path("/{newPIN}")
-//    @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     public void changePIN(@PathParam("newPIN") String newPIN) {
         Connection conn;
         String dbuser = Security.DB_USER;

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
           crossorigin="anonymous">
-    <title>Sec Pi</title>
+    <title>PiSec</title>
     <style>
         .card {
             box-shadow: 5px 5px 2px 1px rgba(0, 0, 125, .2);
@@ -180,15 +180,42 @@
             xmlHttpRequest.open("GET", "rest/system/" + pin, true);
             xmlHttpRequest.send();
         }
+
+        function changePIN() {
+
+            let pin = prompt("Please enter the old PIN:");
+
+            const xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.onreadystatechange = function () {
+                if(this.readyState === 4 && this.status === 200){
+                    if (JSON.parse(this.responseText)) {
+                        let newPIN = prompt("Enter the new PIN: ")
+                        const xmlHttpRequest1 = new XMLHttpRequest();
+                        xmlHttpRequest1.open("POST", "/rest/changePIN/" + newPIN, true);
+                        xmlHttpRequest1.send();
+                        setTimeout(function(){alert("PIN changed successfully!");},1000);
+                    } else {
+                        alert("Incorrect PIN.");
+                    }
+                }
+            }
+            xmlHttpRequest.open("GET", "rest/system/" + pin, true);
+            xmlHttpRequest.send();
+        }
     </script>
 </head>
 <body onload="displaySensors()">
-<div>
-    <h1 class="display-4">Pi Sec</h1>
-</div>
+<!--<div>-->
+<!--    <h1 class="display-4">-->
+<!--    <img src="PiSecLogo.png" alt="Logo" class="img-fluid" width="86" height="107"/>-->
+<!--    </h1>-->
+<!--</div>-->
 
 <div class="mx-auto">
 
+    <h1 class="display-4">
+        <img src="PiSecLogo.png" alt="Logo" class="img-fluid" width="86" height="107"/>
+    </h1>
     <div id="sensors" class="card" style="float: left;">
         <div class="card-body">
             <h4 class="car-title test-center">System Information</h4>
@@ -201,7 +228,7 @@
         </div>
 
     </div>
-    <br>
+
 
     <div id="settings" class="card" style="float: right;margin-right: 25px;">
         <div class="card-body">
@@ -218,7 +245,9 @@
 
                 <li class="list-group-item">
                     <div style="width: 63%; float: right;">
-                        <button type="button" class="btn btn-info"  onclick="location.href='changePIN.html'" > CHANGE PIN </button>
+<!--                        <button type="button" class="btn btn-info"  onclick="location.href='changePIN.html'" > CHANGE PIN </button>-->
+                        <button type="button" class="btn btn-info"  onclick="changePIN()" > CHANGE PIN </button>
+
                     </div>
                 </li>
                 <li class="list-group-item">

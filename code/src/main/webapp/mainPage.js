@@ -171,15 +171,15 @@ function armDisarm() {
 
 function changePIN() {
 
-    let pin = prompt("Please enter the old PIN:");
+    let oldPin = document.getElementById("oldPassword");
+    let newPin =document.getElementById("newPassword");
 
     const xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
         if(this.readyState === 4 && this.status === 200){
             if (JSON.parse(this.responseText)) {
-                let newPIN = prompt("Enter the new PIN: ")
                 const xmlHttpRequest1 = new XMLHttpRequest();
-                xmlHttpRequest1.open("POST", "/rest/changePIN/" + newPIN, true);
+                xmlHttpRequest1.open("POST", "/rest/changePIN/" + newPin, true);
                 xmlHttpRequest1.send();
                 setTimeout(function(){alert("PIN changed successfully!");},1000);
             } else {
@@ -187,6 +187,6 @@ function changePIN() {
             }
         }
     }
-    xmlHttpRequest.open("GET", "rest/system/" + pin, true);
+    xmlHttpRequest.open("GET", "rest/system/" + oldPin, true);
     xmlHttpRequest.send();
 }

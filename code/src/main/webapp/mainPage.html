@@ -97,6 +97,7 @@
                 <li class="list-group-item"></li>
                 <!-- button to change the current PIN -->
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalCenterChange" > CHANGE PIN </button>
+
                 <!-- window to change the PIN -->
                 <div class="modal fade"  id="ModalCenterChange"tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -107,19 +108,22 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="/rest/changePIN" method="POST">
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <!--Collect the PIN-->
-                                        <label for="newPassword">Inset your New Pin:</label>
-                                        <input type="password" class="form-control" id="newPassword" placeholder="Password">
-                                    </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <!--Collect the PIN-->
+                                    <label for="oldPassword">Inset your OLD Pin:</label>
+                                    <input type="password" class="form-control" id="oldPassword" placeholder="Password">
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Change PIN</button>
+                                <div class="form-group">
+                                    <!--Collect the PIN-->
+                                    <label for="newPassword">Inset your NEW Pin:</label>
+                                    <input type="password" class="form-control" id="newPassword" placeholder="Password">
                                 </div>
-                            </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" data-dismiss="modal" onclick="changePIN()">Change PIN</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,8 +149,7 @@
                                 <!--Collect the PIN-->
                                 <label for="PinAlert">Inset your Pin:</label>
                                 <input type="password" class="form-control" id="PinAlert" placeholder="Password">
-<!--                                <button type="button" class="btn btn-info"  onclick="location.href='changePIN.html'" > CHANGE PIN </button>&ndash;&gt;-->
-<!--                                <button type="button" class="btn btn-info"  onclick="changePIN()" > CHANGE PIN </button>-->
+
                             </div>
                         </div>
                         <div class="modal-footer bg-danger">

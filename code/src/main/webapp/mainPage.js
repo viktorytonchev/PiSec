@@ -3,7 +3,7 @@ function AlarmWindow(){
 }
 
 function AlarmState(){
-    let pin = document.getElementById("PinAlert");
+    let pin = document.getElementById("PinAlert").value;
     const xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -23,7 +23,6 @@ function AlarmState(){
     xmlHttpRequest.open("GET", "rest/system/" + pin, true);
     xmlHttpRequest.send();
 }
-
 function displayState() {
     const xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
@@ -149,7 +148,7 @@ function displaySensors() {
 
 function armDisarm() {
 
-    var pin = document.getElementById("CheckPIN");
+    var pin = document.getElementById("CheckPIN").value;
 
     const xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {
@@ -166,5 +165,30 @@ function armDisarm() {
     }
 
     xmlHttpRequest.open("GET", "rest/system/" + pin, true);
+    xmlHttpRequest.send();
+}
+
+
+function changePIN() {
+
+    let oldPin = document.getElementById("oldPIN").value;
+    let newPin = document.getElementById("newPIN").value;
+
+    const xmlHttpRequest = new XMLHttpRequest();
+    xmlHttpRequest.onreadystatechange = function () {
+        if(this.readyState === 4 && this.status === 200){
+            if (JSON.parse(this.responseText)) {
+                const xmlHttpRequest1 = new XMLHttpRequest();
+                xmlHttpRequest1.open("POST", "/rest/changePIN/" + newPin, true);
+                xmlHttpRequest1.send();
+                if(oldPin !== "" && newPin !== ""){
+                    setTimeout(function(){alert("PIN changed successfully!");},1000);
+                }
+            } else {
+                alert("Incorrect PIN.");
+            }
+        }
+    }
+    xmlHttpRequest.open("GET", "rest/system/" + oldPin, true);
     xmlHttpRequest.send();
 }

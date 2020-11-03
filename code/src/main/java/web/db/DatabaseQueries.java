@@ -48,6 +48,10 @@ public class DatabaseQueries {
         return "";
     }
 
+    /**
+     * Returns the System
+     * @return the System
+     */
     public static System getSystem(){
         System result = new System();
 
@@ -87,6 +91,10 @@ public class DatabaseQueries {
         return result;
     }
 
+    /**
+     * Returns all emails
+     * @return all emails
+     */
     public static List<Email> getAllEmails() {
         List<Email> result = new ArrayList<>();
 
@@ -125,6 +133,9 @@ public class DatabaseQueries {
         return result;
     }
 
+    /**
+     * Arms the system if it is disarmed. Disarms the system if it is armed.
+     */
     public static void armDisarmSystem(){
         Connection conn;
         String dbuser = Security.DB_USER;
@@ -152,7 +163,6 @@ public class DatabaseQueries {
             st1.executeUpdate();
 
             if(alarm){
-                java.lang.System.out.println("test1");
                 query = "UPDATE " + dbuser + ".pisec.system SET alarm = FALSE, reset_alarm = TRUE";
                 PreparedStatement st2 = conn.prepareStatement(query);
                 st2.executeUpdate();
@@ -165,6 +175,10 @@ public class DatabaseQueries {
         }
     }
 
+    /**
+     * Returns a new email id
+     * @return
+     */
     public static int getEid(){
         Connection connection;
         String dbuser = Security.DB_USER;
@@ -198,6 +212,10 @@ public class DatabaseQueries {
         return resultId;
     }
 
+    /**
+     * Returns a list with all sensors
+     * @return all sensors
+     */
     public static List<Sensor> getAllSensors(){
         List<Sensor> result = new ArrayList<>();
 
@@ -234,6 +252,10 @@ public class DatabaseQueries {
         return result;
     }
 
+    /**
+     * Changes the PIN
+     * @param newPIN - new PIN to change to
+     */
     public static void changePIN(String newPIN){
         Connection conn;
         String dbuser = Security.DB_USER;
@@ -286,7 +308,7 @@ public class DatabaseQueries {
 
 
             query = "INSERT INTO " + dbuser + ".pisec.Email (eid, sid, email)" +
-                    "VALUES ('" + email.getEid() + "', '" + email.getSid() + "', '?');";
+                    "VALUES ('" + email.getEid() + "', '" + email.getSid() + "', ?);";
 
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, email.getEmail());
@@ -304,6 +326,10 @@ public class DatabaseQueries {
         }
     }
 
+    /**
+     * Delete email with a given eid
+     * @param eid - eid of the email to be deleted
+     */
     public static void deleteEmail(int eid){
         Connection conn;
         String dbuser = Security.DB_USER;

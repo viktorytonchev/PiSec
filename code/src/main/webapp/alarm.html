@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ALARM</title>
+    <style>
+        body {
+            text-align: center;
+            height: 50%;
+            font-size: 300px;
+        }
+    </style>
+
+    <script>
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function alarm() {
+            pinCheck();
+        }
+        
+
+        function pinCheck() {
+
+            let pin = prompt("Please enter your PIN:");
+            const xmlHttpRequest = new XMLHttpRequest();
+            xmlHttpRequest.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    if (JSON.parse(this.responseText)) {
+                        const xmlHttpRequest1 = new XMLHttpRequest();
+                        xmlHttpRequest1.open("POST", "/rest/system/arm", true);
+                        xmlHttpRequest1.send();
+                        alert("Alarm disabled, System disarmed");
+                        sleep(500);
+                        window.location.href = "/dashboard";
+                    } else {
+                        alert("Incorrect PIN");
+                        pinCheck();
+                    }
+                }
+            }
+
+            xmlHttpRequest.open("GET", "rest/system/" + pin, true);
+            xmlHttpRequest.send();
+
+        }
+    </script>
+</head>
+
+<body onload="alarm()" style="background-color: red">
+
+ALARM
+
+</body>
+</html>

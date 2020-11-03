@@ -95,10 +95,10 @@ public class EmailService extends HttpServlet {
                     query = "INSERT INTO " + dbuser + ".pisec.Email (eid, sid, email)" +
                             "VALUES ('" + email.getEid() + "', '" + email.getSid() + "', '" + email.getEmail() + "');";
 
-
+            //todo: add prepared statement
             PreparedStatement st = conn.prepareStatement(query);
             try {
-                st.executeQuery();
+                st.executeUpdate();
             } catch (SQLException ignored) {
             }
 
@@ -114,7 +114,6 @@ public class EmailService extends HttpServlet {
     @Path("deleteEmail/{eid}")
     @DELETE
     public void deleteEmail(@PathParam("eid") int eid){
-        System.out.println(eid);
         Connection conn;
         String dbuser = Security.DB_USER;
         String passwd = Security.DB_PASSWORD;
@@ -132,7 +131,7 @@ public class EmailService extends HttpServlet {
 
             PreparedStatement st = conn.prepareStatement(query);
             try {
-                st.executeQuery();
+                st.executeUpdate();
             } catch (SQLException ignored) {
                 System.out.println(ignored.getMessage());
             }

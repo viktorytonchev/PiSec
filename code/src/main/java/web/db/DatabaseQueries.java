@@ -1,11 +1,13 @@
 package web.db;
 
 import web.login.Security;
+import web.model.System;
+import web.model.Email;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // All database queries go here
 public class DatabaseQueries {
@@ -44,5 +46,81 @@ public class DatabaseQueries {
         return "";
     }
 
+    public static System getSystem(){
+        System result = new System();
+
+        Connection conn;
+        String dbuser = Security.DB_USER;
+        String passwd = Security.DB_PASSWORD;
+        try {
+            Class.forName("org.postgresql.Driver");
+            conn = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl:5432/" + dbuser,
+                    dbuser, passwd);
+            conn.setAutoCommit(true);
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            String query = "SELECT * FROM " + dbuser + ".pisec.system s";
+            PreparedStatement st = conn.prepareStatement(query);
+            ResultSet resultSet = st.executeQuery();
+            int sid;
+            String pin;
+            String name;
+            String password;
+            boolean armed;
+            boolean alarm;
+            while (resultSet.next()) {
+                sid = resultSet.getInt("sid");
+                pin = resultSet.getString("pin");
+                name = resultSet.getString("name");
+                armed = resultSet.getBoolean("armed");
+                alarm = resultSet.getBoolean("alarm");
+                password = resultSet.getString("password");
+                result = new System(sid, armed, alarm, name, password, pin);
+            }
+            conn.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public static List<Email> getAllEmails() {
+        List<Email> result = new ArrayList<>();
+
+        Connection conn;
+        String dbuser = Security.DB_USER;
+        String passwd = Security.DB_PASSWORD;
+        try {
+            Class.forName("org.postgresql.Driver");
+            conn = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl:5432/" + dbuser,
+                    dbuser, passwd);
+            conn.setAutoCommit(true);
+            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            String query = "SELECT * FROM " + dbuser + ".pisec.Email e ORDER BY e.eid";
+            PreparedStatement st = conn.prepareStatement(query);
+            ResultSet resultSet = st.executeQuery();
+
+            int eid;
+            String emailString;
+            int sid;
+            while (resultSet.next()) {
+                eid = resultSet.getInt("eid");
+                emailString = resultSet.getString("email");
+                sid = resultSet.getInt("sid");
+
+                Email email = new Email(eid, sid, emailString);
+
+                result.add(email);
+            }
+
+            conn.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 
 }

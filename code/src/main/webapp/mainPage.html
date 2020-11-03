@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+    <link rel="icon" href="PiSec.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
           crossorigin="anonymous">
-    <title>Sec Pi</title>
+    <title>Pi Sec</title>
     <style>
         .card {
             box-shadow: 5px 5px 2px 1px rgba(0, 0, 125, .2);
@@ -36,158 +36,19 @@
         }
 
     </style>
-    <script>
-        function displayState() {
-            const xmlHttpRequest = new XMLHttpRequest();
-            xmlHttpRequest.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status === 200) {
-                    const response = this.responseText;
-                    const system = JSON.parse(response);
-
-                    const state = document.createElement("li");
-                    state.setAttribute("id", "system");
-                    let left = document.createElement("div");
-                    let right1 = document.createElement("div");
-                    let right2 = document.createElement("div");
-                    left.setAttribute("class", "left");
-                    left.innerText = "System State:";
-                    right1.setAttribute("class", "right");
-                    right2.setAttribute("class", "right");
-                    let armed = document.createElement("div");
-                    let alarm = document.createElement("div");
-                    if (system.alarm) {
-                        alarm.setAttribute("class", "btn btn-danger");
-                        window.location.href = "/alarm";
-                    } else {
-                        alarm.setAttribute("class", "btn btn-primary");
-                    }
-                    alarm.innerText = "ALARM";
-                    if (system.armed) {
-                        armed.setAttribute("class", "btn btn-success");
-                        armed.innerText = "ARMED";
-                    } else {
-                        armed.setAttribute("class", "btn btn-info");
-                        armed.innerText = "DISARMED";
-                    }
-
-
-                    right1.appendChild(armed);
-                    right2.appendChild(alarm);
-                    state.appendChild(left);
-                    state.appendChild(right1);
-                    state.appendChild(right2);
-
-                    const list = document.getElementById("list");
-                    const li = document.getElementById("li");
-                    li.innerHTML = state.innerHTML;
-
-                }
-            }
-            xmlHttpRequest.open("GET", "rest/system/", true);
-            xmlHttpRequest.send();
-
-        }
-
-        function setup(l) {
-
-            let list = document.getElementById("list");
-
-            if (!list.hasChildNodes()) {
-                let li = document.createElement("li");
-                li.setAttribute("id", "li");
-                list.appendChild(li);
-                list.appendChild(document.createElement("br"));
-                list.appendChild(document.createElement("br"));
-                list.appendChild(document.createElement("br"));
-                list.appendChild(document.createElement("br"));
-
-                for (let i = 0; i < l; i++) {
-                    let li = document.createElement("li");
-                    li.setAttribute("id", "li" + i);
-                    list.appendChild(li);
-                    list.appendChild(document.createElement("br"));
-                    list.appendChild(document.createElement("br"));
-                    list.appendChild(document.createElement("br"));
-                    list.appendChild(document.createElement("br"));
-                }
-            }
-
-        }
-
-        function displaySensors() {
-
-            const xmlHttpRequest = new XMLHttpRequest();
-            xmlHttpRequest.onreadystatechange = function () {
-                if (this.readyState === 4 && this.status === 200) {
-                    const response = this.responseText;
-                    const sensors = JSON.parse(response);
-
-                    setup(sensors.length);
-
-                    displayState();
-
-                    if (sensors.length > 0) {
-
-                        for (let i = 0; i < sensors.length; i++) {
-                            const sensor = document.createElement("li");
-                            let left = document.createElement("div");
-                            let right = document.createElement("div");
-                            let rect = document.createElement("div")
-                            left.setAttribute("class", "left");
-                            right.setAttribute("class", "right");
-                            if (sensors[i].open) {
-                                rect.setAttribute("class", "btn btn-primary");
-                                rect.innerText = "OPEN";
-                            } else {
-                                rect.setAttribute("class", "btn btn-danger");
-                                rect.innerText = "CLOSED";
-                            }
-                            left.innerText = sensors[i].name + ":";
-                            sensor.appendChild(left);
-                            right.appendChild(rect);
-                            sensor.appendChild(right);
-                            const li = document.getElementById("li" + i);
-                            li.innerHTML = sensor.innerHTML;
-                        }
-                    }
-                }
-            }
-            xmlHttpRequest.open("GET", "rest/sensors/", true);
-            xmlHttpRequest.send();
-
-            setTimeout(function () {
-                displaySensors();
-            }, 500);
-        }
-
-        function armDisarm() {
-
-            let pin = prompt("Please enter your PIN:");
-
-            const xmlHttpRequest = new XMLHttpRequest();
-            xmlHttpRequest.onreadystatechange = function () {
-                if(this.readyState === 4 && this.status === 200){
-                    if (JSON.parse(this.responseText)) {
-                        const xmlHttpRequest1 = new XMLHttpRequest();
-                        xmlHttpRequest1.open("POST", "/rest/system/arm", true);
-                        xmlHttpRequest1.send();
-                    } else {
-                        alert("Incorrect PIN");
-                    }
-                }
-            }
-
-            xmlHttpRequest.open("GET", "rest/system/" + pin, true);
-            xmlHttpRequest.send();
-        }
-    </script>
+    <script src="mainPage.js"></script>
 </head>
 <body onload="displaySensors()">
-<div>
+<div class=" p-3 my-3 bg-dark text-white">
+    <img src="PiSec.png" class="rounded float-left" style="width: 10%" alt="...">
     <h1 class="display-4">Pi Sec</h1>
+    <br>
+</div>
+<div>
+
 </div>
 
-<div class="mx-auto">
+<div class="">
 
     <div id="sensors" class="card" style="float: left;">
         <div class="card-body">
@@ -195,9 +56,6 @@
         </div>
         <div>
             <ul id="list" class="list-group list-group-flush"></ul>
-            <!--            <ul  class="list-group list-group-flush">-->
-            <!--                <button type="button" class="btn btn-square btn-danger" onclick="displaySensors()">Reload</button>-->
-            <!--            </ul>-->
         </div>
 
     </div>
@@ -209,30 +67,105 @@
         </div>
         <div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div style="width: 63%; float: right;">
-                        <button type="button" class="btn btn-info" onclick="armDisarm()"> ARM/DISARM <br> SYSTEM
-                        </button>
+                <li class="list-group-item"></li>
+                <!--button to Arm/Disarm the system-->
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalCenterArm" > ARM/DISARM <br> SYSTEM</button>
+                <!-- window to arm and Disarm System-->
+                <div class="modal fade" id="ModalCenterArm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Arm/Disarm System</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!--Collecting the data for the passwords-->
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="CheckPIN">Insert your PIN for Confirmation:</label>
+                                        <input type="password" class="form-control" id="CheckPIN" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="armDisarm()">Verify</button>
+                                </div>
+                        </div>
                     </div>
-                </li>
+                </div>
+                <!-- end -->
+                <li class="list-group-item"></li>
+                <!-- button to change the current PIN -->
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ModalCenterChange" > CHANGE PIN </button>
+                <!-- window to change the PIN -->
+                <div class="modal fade"  id="ModalCenterChange"tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" >Change the Pin</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="/rest/changePIN" method="POST">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <!--Collect the PIN-->
+                                        <label for="newPassword">Inset your New Pin:</label>
+                                        <input type="password" class="form-control" id="newPassword" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" data-dismiss="modal">Change PIN</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-                <li class="list-group-item">
-                    <div style="width: 63%; float: right;">
-                        <button type="button" class="btn btn-info"  onclick="location.href='changePIN.html'" > CHANGE PIN </button>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div style="width: 63%; float: right; margin-bottom: 10px;">
-                        <button type="button" class="btn btn-warning" onclick="location.href='/emails'"> Edit emails
-                        </button>
-                    </div>
-                </li>
+                <li class="list-group-item"></li>
+                <button type="button" class="btn btn-secondary" onclick="location.href='/emails'"> Edit emails</button>
+
             </ul>
+
+            <!-- MODAL FOR ALARM-->
+            <div class="modal fade"  id="AlarmActivated"tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger">
+                            <h5 class="modal-title" >ALERT!</h5>
+                            <p>Your system has been corrupted</p>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                            <div class="modal-body bg-danger">
+                                <div class="form-group">
+                                    <!--Collect the PIN-->
+                                    <label for="PinAlert">Inset your Pin:</label>
+                                    <input type="password" class="form-control" id="PinAlert" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="modal-footer bg-danger">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-dark" data-dismiss="modal" onclick="AlarmState()">Turn the alarm off</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
 
 </div>
+<!-- Js and JQUERY -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

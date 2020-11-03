@@ -172,7 +172,7 @@ function armDisarm() {
 function changePIN() {
 
     let oldPin = document.getElementById("oldPIN").value;
-    let newPin =document.getElementById("newPIN").value;
+    let newPin = document.getElementById("newPIN").value;
 
     const xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {

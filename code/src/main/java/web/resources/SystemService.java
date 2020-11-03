@@ -81,7 +81,7 @@ public class SystemService {
 
             if(alarm){
                 java.lang.System.out.println("test1");
-                query = "UPDATE " + dbuser + ".pisec.system SET alarm = FALSE, reset_alarm = FALSE";
+                query = "UPDATE " + dbuser + ".pisec.system SET alarm = FALSE, reset_alarm = TRUE";
                 PreparedStatement st2 = conn.prepareStatement(query);
                 st2.executeUpdate();
             }

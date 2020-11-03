@@ -157,8 +157,7 @@ public class DatabaseQueries {
                 alarm = resultSet.getBoolean("alarm");
             }
 
-            query = "UPDATE " + dbuser + ".pisec.system SET armed = ?";
-            PreparedStatement st1 = conn.prepareStatement(query);
+            PreparedStatement st1 = conn.prepareStatement("UPDATE " + dbuser + ".pisec.system SET armed = ?");
             st1.setBoolean(1, !armed);
             st1.executeUpdate();
 
@@ -361,4 +360,34 @@ public class DatabaseQueries {
         }
     }
 
+    public static int getMaxEid(){
+        Connection connection;
+        String dbuser = Security.DB_USER;
+        String passwd = Security.DB_PASSWORD;
+        int resultId = 1;
+        try {
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl/" + dbuser,
+                    dbuser, passwd);
+            connection.setAutoCommit(true);
+            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            String query = "SELECT eid \n" +
+                    "FROM " + dbuser + ".pisec.email \n" +
+                    "ORDER BY eid DESC\n" +
+                    "LIMIT 1";
+
+            PreparedStatement st = connection.prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                resultId = rs.getInt("eid");
+            }
+            connection.close();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
+
+        return resultId;
+    }
 }

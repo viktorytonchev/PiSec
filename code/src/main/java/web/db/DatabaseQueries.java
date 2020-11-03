@@ -234,7 +234,7 @@ public class DatabaseQueries {
         return result;
     }
 
-    public static void changePin(String pin){
+    public static void changePIN(String newPIN){
         Connection conn;
         String dbuser = Security.DB_USER;
         String passwd = Security.DB_PASSWORD;
@@ -248,7 +248,7 @@ public class DatabaseQueries {
 
 
             query = "UPDATE " + dbuser + ".pisec.System " +
-                    "SET pin = " + pin + "WHERE sid = " + 0 + ";";
+                    "SET pin = " + newPIN + "WHERE sid = " + 0 + ";";
 
 
             PreparedStatement st = conn.prepareStatement(query);

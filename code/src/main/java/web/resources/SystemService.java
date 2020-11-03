@@ -63,7 +63,7 @@ public class SystemService {
                     dbuser, passwd);
             conn.setAutoCommit(true);
             conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            String query = "SELECT s.armed FROM " + dbuser + ".pisec.system s" ;
+            String query = "SELECT s.armed, s.alarm FROM " + dbuser + ".pisec.system s" ;
             PreparedStatement st = conn.prepareStatement(query);
             ResultSet resultSet = st.executeQuery();
 

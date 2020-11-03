@@ -68,8 +68,10 @@ public class SystemService {
             ResultSet resultSet = st.executeQuery();
 
             boolean armed = false;
+            boolean alarm = false;
             while (resultSet.next()) {
                 armed = resultSet.getBoolean("armed");
+                alarm = resultSet.getBoolean("alarm");
             }
 
             query = "UPDATE " + dbuser + ".pisec.system SET armed = ?";
@@ -77,9 +79,9 @@ public class SystemService {
             st1.setBoolean(1, !armed);
             st1.executeUpdate();
 
-            if(armed){
+            if(alarm){
                 java.lang.System.out.println("test1");
-                query = "UPDATE " + dbuser + ".pisec.system SET alarm = FALSE";
+                query = "UPDATE " + dbuser + ".pisec.system SET alarm = FALSE, reset_alarm = FALSE";
                 PreparedStatement st2 = conn.prepareStatement(query);
                 st2.executeUpdate();
             }

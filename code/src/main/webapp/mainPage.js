@@ -23,6 +23,7 @@ function AlarmState(){
     xmlHttpRequest.open("GET", "rest/system/" + pin, true);
     xmlHttpRequest.send();
 }
+
 function displayState() {
     const xmlHttpRequest = new XMLHttpRequest();
     xmlHttpRequest.onreadystatechange = function () {

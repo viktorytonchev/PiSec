@@ -8,6 +8,7 @@ import web.model.System;
 import javax.annotation.processing.Generated;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.xml.crypto.Data;
 import java.sql.*;
 
 @Path("/system")
@@ -53,45 +54,7 @@ public class SystemService {
     @POST
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     public void armDisarmSystem(){
-
-        Connection conn;
-        String dbuser = Security.DB_USER;
-        String passwd = Security.DB_PASSWORD;
-        try {
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl:5432/" + dbuser,
-                    dbuser, passwd);
-            conn.setAutoCommit(true);
-            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            String query = "SELECT s.armed, s.alarm FROM " + dbuser + ".pisec.system s" ;
-            PreparedStatement st = conn.prepareStatement(query);
-            ResultSet resultSet = st.executeQuery();
-
-            boolean armed = false;
-            boolean alarm = false;
-            while (resultSet.next()) {
-                armed = resultSet.getBoolean("armed");
-                alarm = resultSet.getBoolean("alarm");
-            }
-
-            query = "UPDATE " + dbuser + ".pisec.system SET armed = ?";
-            PreparedStatement st1 = conn.prepareStatement(query);
-            st1.setBoolean(1, !armed);
-            st1.executeUpdate();
-
-            if(alarm){
-                java.lang.System.out.println("test1");
-                query = "UPDATE " + dbuser + ".pisec.system SET alarm = FALSE, reset_alarm = TRUE";
-                PreparedStatement st2 = conn.prepareStatement(query);
-                st2.executeUpdate();
-            }
-
-            conn.close();
-            }
-        catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-
+        DatabaseQueries.armDisarmSystem();
     }
 
 

@@ -15,7 +15,7 @@ import java.util.Set;
 //import java.util.Date;
 
 @Path("/registerEmail")
-public class EmailService extends HttpServlet {
+public class EmailService {
 
 //    public static int pid = 0; //OBSOLETE
 
@@ -26,36 +26,7 @@ public class EmailService extends HttpServlet {
      * @return - new pid
      */
     public int getEid() {
-        Connection connection;
-        String dbuser = Security.DB_USER;
-        String passwd = Security.DB_PASSWORD;
-        int resultId = 1;
-        try {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl/" + dbuser,
-                    dbuser, passwd);
-            connection.setAutoCommit(true);
-            connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            String query = "SELECT eid \n" +
-                    "FROM " + dbuser + ".pisec.email \n" +
-                    "ORDER BY eid DESC\n" +
-                    "LIMIT 1";
-
-            PreparedStatement st = connection.prepareStatement(query);
-            ResultSet rs = st.executeQuery();
-
-            if (rs.next()) {
-                resultId = rs.getInt("eid");
-                resultId++;
-
-            }
-            connection.close();
-
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-
-        return resultId;
+        return DatabaseQueries.getEid();
     }
 
 
@@ -70,78 +41,16 @@ public class EmailService extends HttpServlet {
         int sid = 0;
 
         Email email = new Email(eid, sid, emailString);
-        addEmailToDB(email);
+        DatabaseQueries.addEmailToDB(email);
 
     }
 
-    /**
-     * Method used to add a project to the database
-     * @param email - email to be added
-     */
-    public void addEmailToDB(Email email) {
 
-        Connection conn;
-        String dbuser = Security.DB_USER;
-        String passwd = Security.DB_PASSWORD;
-        try {
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl/" + dbuser,
-                    dbuser, passwd);
-            conn.setAutoCommit(true);
-            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            String query;
-
-
-                    query = "INSERT INTO " + dbuser + ".pisec.Email (eid, sid, email)" +
-                            "VALUES ('" + email.getEid() + "', '" + email.getSid() + "', '" + email.getEmail() + "');";
-
-            //todo: add prepared statement
-            PreparedStatement st = conn.prepareStatement(query);
-            try {
-                st.executeUpdate();
-            } catch (SQLException ignored) {
-            }
-
-            NotificationMailer.executeSendNewEmailNotification(email.getEmail());
-
-            conn.close();
-
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Path("deleteEmail/{eid}")
     @DELETE
     public void deleteEmail(@PathParam("eid") int eid){
-        Connection conn;
-        String dbuser = Security.DB_USER;
-        String passwd = Security.DB_PASSWORD;
-        String emailRecipient = DatabaseQueries.getEmailFromEid(eid);
-        try {
-            Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://bronto.ewi.utwente.nl/" + dbuser,
-                    dbuser, passwd);
-            conn.setAutoCommit(true);
-            conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
-            String query;
-
-            query = "DELETE FROM " + dbuser + ".pisec.Email " + "AS e " +
-                    "WHERE e.eid = " + eid + ";";
-
-            PreparedStatement st = conn.prepareStatement(query);
-            try {
-                st.executeUpdate();
-            } catch (SQLException ignored) {
-                System.out.println(ignored.getMessage());
-            }
-
-            NotificationMailer.executeSendDeletedEmailNotification(emailRecipient);
-            conn.close();
-
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
+        DatabaseQueries.deleteEmail(eid);
     }
 
 }
